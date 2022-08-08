@@ -10,7 +10,7 @@ class Calc {
 
     fun eval(): String {
         return try {
-            if (isInit && oper != "C") {
+            if (isInit && oper != "AC") {
                 result = current
                 former = result
                 current = 0.0
@@ -21,14 +21,14 @@ class Calc {
                     "-" -> { result = former - current }
                     "×" -> { result = former * current }
                     "÷" -> { result = former / current }
-                    "C" -> { reset() }
+                    "AC" -> { reset() }
                     else -> { result = former }
                 }
                 former = result
                 current = 0.0
                 isInit = true
             }
-            result.toString()
+            result.toString().replace(Regex("\\.0$"), "")
         } catch (e: Exception) {
             reset()
             e.toString()
